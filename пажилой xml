@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dialog>
+  <question id ="0">
+    <text>Чем могу помочь?</text>
+    <answer ifset="f1" next="3">Как пройти в аэропорт</answer>
+    <answer ifnotset="f1" next="1">Как пройти в аэропорт</answer>
+    <answer next="1">Как пройти в аэропорт</answer>
+    <answer next="2">Как пройти к супермаркету</answer>  
+    <answer next="2" setflag="f1=1">Пошёл в жопу</answer>  
+    <answer>спасибо, ничего не надо</answer>  
+  </question>
+  <question id ="1">
+    <text>Аэропорт в конце этой улицы.</text>
+    <answer next="2">Как пройти к супермаркету?</answer>
+    <answer next="0">У меня есть ещё вопросы</answer>
+    <answer>спасибо</answer>  
+  </question>
+  <question id ="2">
+    <text>Супермаркет слева от вас</text>
+    <answer next="1">Как пройти в аэропорт?</answer>
+    <answer next="0">У меня есть ещё вопросы</answer>
+    <answer>спасибо</answer>  
+  </question>
+  <question id ="2">
+    <text>Я с грубиянами не разговариваю</text>
+    <answer next="1">Как пройти в аэропорт?</answer>
+    <answer next="0">У меня есть ещё вопросы</answer>
+    <answer>спасибо</answer>  
+  </question>
+</dialog>
