@@ -1,0 +1,43 @@
+open System.Xml.Linq
+type Answer = {
+    text : string
+    next : int option
+    setflag
+
+}
+type Question = {
+    id : int
+    text : string
+    answers : Answer list
+} 
+
+
+let xn s = XName.Get(s)
+
+let getNext (x : XElement) = if x.FirstAttribute = null then None else Some(int x.FirstAttribute.Value)
+
+let xml2answer (x : XElement) =
+    let next = getNext x
+    {text = x.Value; next = next}
+
+let xml2question (x : XElement) =
+    let answers = x.Elements(xn "answer") |> List.ofSeq |> List.map xml2answer
+    {id = int x.FirstAttribute.Value; text = x.Element(xn "text").Value; answers = answers}
+let doc = XDocument.Load(@"C:\123\test.xml")
+
+let questions = doc.Element(xn "dialog").Elements(xn "question") |> List.ofSeq |> List.map xml2question
+
+let printAnswers (a : Answer list) =
+    a |> List.iteri (fun i x -> printfn "  %i. %s" i x.text) 
+
+let rec fn (q : Question list) id =
+    q.[id].text |> printfn "%s"
+    q.[id].answers |> printAnswers
+    let choose = stdin.ReadLine()|> int
+    match q.[id].answers.[choose].next with
+    |None -> ()
+    |Some x -> fn q x
+
+
+
+fn questions 0
